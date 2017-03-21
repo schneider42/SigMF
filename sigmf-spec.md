@@ -185,7 +185,7 @@ Namespaces provide a way to further classify name/value pairs within metadata
 objects. This specification defines the `core` namespace, which contains
 commonly used name/value pairs for describing signal data.
 
-Other namespaces may be defined by the user as needed.
+Other namespaces may be defined by the user in the form of `SigMF Extensions`.
 
 #### Global Object
 
@@ -209,6 +209,24 @@ the `global` object:
 |`date`|false|string|An ISO-8601 formatted string of the capture date of the recording.|
 |`license`|false|string|The license under which the recording is offered.|
 |`hw`|false |string|A text description of the hardware used to make the recording.|
+|`extensions`|false|JSON object|A list of extensions used by this recording.|
+
+The value of the `extensions` name/value pair is a list of `SigMF Extension`
+namespaces contained within a JSON object. This list takes the form of JSON
+name/value string pairs, where the name is the namespace provided by an
+extension, and the value is a string that specifies whether the extension is
+`optional` or `required` to properly parse & process the SigMF recording.
+
+```JSON
+  "global": {
+    ...
+    "core:extensions" : {
+      "extension-01": "optional",
+      "extension-02": "required",
+    }
+    ...
+  }
+```
 
 #### Capture Object
 
@@ -259,6 +277,17 @@ the `annotation` object:
 |`freq_upper_edge`|false|double|The upper edge of the frequency band of a signal feature that this annotation describes. |
 |`latitude`|false|need a standard?| |
 |`longitude`|false|need a standard?| |
+
+### Extensions
+
+Additional namespaces may be defined in the form of `SigMF Extensions`. The
+extensions used by a recording must be listed in the `extensions` name/value
+pair of the `global` object. 
+
+#### Defining Extensions
+
+Extensions must be defined according to the `SigMF Extension Format`, 
+
 
 ### Dataset Licensing
 
